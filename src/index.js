@@ -5,16 +5,44 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 
-function Welcome(props) {
-  return <h1>Hello, {props.name}</h1>;
+function Comment(props) {
+  return (
+    <div className="comment">
+      <div className="UserInfo">
+        <img className="Avatar"
+          src={props.author.avaratUrl}
+          alt={props.author.name}
+        />
+        <div className="UserInfo-name">
+          {props.author.name}
+        </div>
+      </div>
+      <div className="Comment-text">
+        {props.text}
+      </div>
+      <div className="Comment-date">
+        {formatDate(props.date)}
+      </div>
+    </div>
+  );
 }
 
-function App() {
+function Avartar(props) {
   return (
-    <div>
-      <Welcome name="sara" />
-      <Welcome name="Cahal" />
-      <Welcome name="와티" />
+    <img className="Avartar"
+    src={props.user.avartarUrl}
+    alt={props.user.name}
+    />
+  );
+}
+
+function UserInfo(props) {
+  return (
+    <div className="UserInfo">
+      <Avartar User={props.user} />
+      <div className="UserInfo-name">
+        {props.user.name}
+      </div>
     </div>
   );
 }
