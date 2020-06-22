@@ -5,56 +5,24 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 
-function Comment(props) {
-  return (
-    <div className="comment">
-      <div className="UserInfo">
-        <img className="Avatar"
-          src={props.author.avaratUrl}
-          alt={props.author.name}
-        />
-        <div className="UserInfo-name">
-          {props.author.name}
-        </div>
-      </div>
-      <div className="Comment-text">
-        {props.text}
-      </div>
-      <div className="Comment-date">
-        {formatDate(props.date)}
-      </div>
+function Clock(props) {
+  return(
+    <div>
+      <h1>Hello, world!</h1>
+      <h2>It is {props.date.toLocaleTimeString()}.</h2>
     </div>
   );
 }
 
-function Avartar(props) {
-  return (
-    <img className="Avartar"
-    src={props.user.avartarUrl}
-    alt={props.user.name}
-    />
-  );
-}
-
-function UserInfo(props) {
-  return (
-    <div className="UserInfo">
-      <Avartar User={props.user} />
-      <div className="UserInfo-name">
-        {props.user.name}
-      </div>
-    </div>
+function tick() {
+  ReactDOM.render(
+    <Clock date={new Date()} />,
+    document.getElementById('root')
   );
 }
 
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-)
-
-
-
+setInterval(tick, 1000);
 
 
 
