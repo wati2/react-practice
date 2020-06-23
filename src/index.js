@@ -4,24 +4,24 @@ import './index.css';
 // import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+function FormattedDate(props) {
+return <h2> It is {props.date.toLocaleTimeString()}.</h2>;
+}
 
-// 생성자의 존재이유 = 초기값 설정
+
 class Clock extends React.Component {
+  // 생성자의 존재이유 = 초기값 설정
   constructor(props){
     super(props);
     this.state = {date:new Date()};
   }
 
-  // 메서드는 컴포넌트 풀력물이 DOM에 렌더링 된 후에 실행됩니다.
-  // 이 장소가 타이머를 설정하기에 좋은 장소입니다.
   componentDidMount() {
-    // 컴포넌트 풀력물이 DOM에 렌더링 된 후에 실행됩니다. 이 장소가 타이머를 설정하기에 좋은 장소입니다.
     this.timerID = setInterval(
       () => this.tick(),
       1000
     );
   }
-
   
   componentWillUnmount() {
     clearInterval(this.timerID);
@@ -37,20 +37,16 @@ class Clock extends React.Component {
     return (
       <div>
         <h1>Hello, world</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+        <FormattedDate date={this.state.date} />
       </div>
     );
   }
 }
 
-function tick() {
-  ReactDOM.render(
-    <Clock />,
-    document.getElementById('root')
-  );
-}
-
-setInterval(tick, 1000);
+ReactDOM.render(
+  <Clock />,
+  document.getElementById('root')
+);
 
 
 
