@@ -5,24 +5,53 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 
-function Clock(props) {
-  return(
-    <div>
-      <h1>Hello, world!</h1>
-      <h2>It is {props.date.toLocaleTimeString()}.</h2>
-    </div>
-  );
+// 생성자의 존재이유 = 초기값 설정
+class Clock extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {date:new Date()};
+  }
+
+  // 메서드는 컴포넌트 풀력물이 DOM에 렌더링 된 후에 실행됩니다.
+  // 이 장소가 타이머를 설정하기에 좋은 장소입니다.
+  componentDidMount() {
+    // 컴포넌트 풀력물이 DOM에 렌더링 된 후에 실행됩니다. 이 장소가 타이머를 설정하기에 좋은 장소입니다.
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+  }
+
+  
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      date: new Date()
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Hello, world</h1>
+        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+      </div>
+    );
+  }
 }
 
 function tick() {
   ReactDOM.render(
-    <Clock date={new Date()} />,
+    <Clock />,
     document.getElementById('root')
   );
 }
 
-
 setInterval(tick, 1000);
+
 
 
 
