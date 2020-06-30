@@ -4,15 +4,12 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
+const scaleNames = {
+  c: 'Celsius',
+  f: 'Fahrenheit'
+};
 
-function BoilingVerdict(props) {
-  if (props.celsius >= 100) {
-    return <p>The warter would boil.</p>;
-  }
-  return <p>The warter would not boil.</p>
-}
-
-class Calculator extends React.Component {
+class TemperatureInput extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -25,18 +22,28 @@ class Calculator extends React.Component {
 
   render() {
     const temperature = this.state.temperature;
+    const scale = this.props.scale;
     return (
       <fieldset>
-        <legend>Enter temperature in Celsius:</legend>
-        <input
-          value={temperature}
-          onChange={this.handleChange} />
-        <BoilingVerdict
-          celsius={parseFloat(temperature)} />
+        <legend>Enter temperature in {scaleNames[scale]}:</legend>
+        <input value={temperature}
+               onChange={this.handleChange} />
       </fieldset>
     );
   }
 }
+
+class Calculator extends React.Component {
+  render() {
+    return (
+      <div>
+        <TemperatureInput scale="c" />
+        <TemperatureInput scale="f" />
+      </div>
+    );
+  }
+}
+
 
 ReactDOM.render(
   <Calculator />,
