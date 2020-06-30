@@ -5,40 +5,26 @@ import * as serviceWorker from './serviceWorker';
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 
-function Blog(props){
-  const sidebar =(
-    <ul>
-      {props.posts.map((post)=>
-      <li key={post.id}>
-        {post.title}
-      </li>
-      )}
-    </ul>
-  );
-  const content = props.posts.map((post) =>
-  <div key={post.id}>
-    <h3>{post.title}</h3>
-    <p>{post.content}</p>
-  </div>
-  );
+function ListItem(props){
+  return <li>{props.value}</li>
+}
+
+function NumberList(props) {
+  const numbers = props.numbers;
   return (
-    <div>
-      {sidebar}
-      <hr />
-      {content}
-    </div>
+    <ul>
+      {numbers.map((number)=>
+      <ListItem key={number.toString()} value={number} /> )}
+    </ul>
   );
 }
 
-const posts = [
-  {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
-  {id: 2, title: 'Installation', content: 'You can install React from npm'}
-];
+const numbers = [1,2,3,4,5];
 
 ReactDOM.render(
-  <Blog posts={posts} />,
+  <NumberList numbers={numbers} />,
   document.getElementById('root')
-);
+)
 
 
 // If you want your app to work offline and load faster, you can change
