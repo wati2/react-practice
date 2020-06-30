@@ -2,30 +2,49 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
+import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 
 
-function Mailbox(props) {
-  const unreadMessages = props.unreadMessages;
+function WarningBanner(props) {
+  if (!props.warn) {
+    return null;
+  }
+
   return (
-    <div>
-      <h1>Hello!</h1>
-      {unreadMessages.length > 0 &&
-        <h2>
-          You have {unreadMessages.length} unread messages.
-        </h2>
-      }
+    <div className="warning">
+      Warning!
     </div>
   );
 }
 
-const messages = ['React', 'Re: React', 'Re:Re: React'];
+class Page extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {showWarning: true}
+    this.handleToggleClick = this.handleToggleClick.bind(this);
+  }
 
-// 개쩜.. Javascript에서 true && expression은 항상 expression으로 평가되고
-// false && expression은 항상 false로 평가됩니다.
+  handleToggleClick() {
+    this.setState(prevState => ({
+      showWarning: !prevState.showWarning
+    }));
+  }
+
+  render() {
+    return (
+      <div>
+        <WarningBanner warn={this.state.showWarning} />
+        <button onClick={this.handleToggleClick}>
+          {this.state.showWarning ? '보이냐?클릭해봐라' : '안보이냐?클릭해봐라'}
+        </button>
+      </div>
+    );
+  }
+}
 
 ReactDOM.render(
-  <Mailbox unreadMessages={messages} />,
+  <Page />,
   document.getElementById('root')
 );
 
