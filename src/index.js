@@ -5,27 +5,41 @@ import * as serviceWorker from './serviceWorker';
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 
-function ListItem(props){
-  return <li>{props.value}</li>
-}
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: '헬로'};
 
-function NumberList(props) {
-  const numbers = props.numbers;
-  return (
-    <ul>
-      {numbers.map((number)=>
-      <ListItem key={number.toString()} value={number} /> )}
-    </ul>
-  );
-}
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-const numbers = [1,2,3,4,5];
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+
+  handleSubmit(event) {
+    alert('A name was submitted: ' + this.state.value);
+    event.preventDefault();
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" value={this.state.value} onChange={this.handleChange} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
 
 ReactDOM.render(
-  <NumberList numbers={numbers} />,
+  <NameForm />,
   document.getElementById('root')
-)
-
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
