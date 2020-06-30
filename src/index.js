@@ -5,57 +5,43 @@ import * as serviceWorker from './serviceWorker';
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
 
-class Reservation extends React.Component {
+function BoilingVerdict(props) {
+  if (props.celsius >= 100) {
+    return <p>The warter would boil.</p>;
+  }
+  return <p>The warter would not boil.</p>
+}
+
+class Calculator extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isGoing: true,
-      numberOfGuests: 2
-    };
-
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {temperature: ''};
   }
 
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
+  handleChange(e) {
+    this.setState({temperature: e.target.value});
   }
 
   render() {
+    const temperature = this.state.temperature;
     return (
-      <form>
-        <label>
-          Is going:
-          <input
-            name="isGoing"
-            type="checkbox"
-            checked={this.state.isGoing}
-            onChange={this.handleInputChange} />
-        </label>
-        <br />
-        <label>
-          Number of guests:
-          <input
-            name="numberOfGuests"
-            type="number"
-            value={this.state.numberOfGuests}
-            onChange={this.handleInputChange} />
-        </label>
-      </form>
+      <fieldset>
+        <legend>Enter temperature in Celsius:</legend>
+        <input
+          value={temperature}
+          onChange={this.handleChange} />
+        <BoilingVerdict
+          celsius={parseFloat(temperature)} />
+      </fieldset>
     );
   }
 }
 
 ReactDOM.render(
-  <Reservation />,
+  <Calculator />,
   document.getElementById('root')
 );
-
 
 
 // If you want your app to work offline and load faster, you can change
