@@ -4,6 +4,14 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 // import { findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 
+function Contacts() {
+  return <div className="Contacts" />
+}
+
+function Chat() {
+  return <div className="Chat" />
+}
+
 function FancyBorder(props) {
   return (
     <div className={'FancyBorder FancyBorder-' + props.color}>
@@ -25,8 +33,35 @@ function WelcomeDialog(){
   )
 }
 
+function SPlitPane(props) {
+  return (
+    <div className="SplitPane">
+      <div className="SplitPane-left">
+        {props.left}
+      </div>
+      <div className="SPlitPane-right">
+        {props.right}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <SPlitPane
+      left={
+        <Contacts />
+      }
+      right={
+        <Chat />
+      } />
+  )
+}
+
+
+
 ReactDOM.render(
-  <WelcomeDialog />,
+  <App />,
   document.getElementById('root')
 )
 
